@@ -1,0 +1,22 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace RPM_Tool.Models
+{
+    public class Building_Utility
+    {
+        [Key]
+        public int Id { get; set; }
+        [ForeignKey("Utility")]
+        public int UtilityId { get; set; }
+        public Utility Utility { get; set; }
+        public int VendorId { get; set; }
+        [ForeignKey("Building")]
+        public int BuildingId { get; set; }
+        public Building Building { get; set; }
+    }
+}
