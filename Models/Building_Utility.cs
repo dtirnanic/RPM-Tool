@@ -14,7 +14,6 @@ namespace RPM_Tool.Models
         [ForeignKey("Utility")]
         public int UtilityId { get; set; }
         public Utility Utility { get; set; }
-        public int VendorId { get; set; }
         [ForeignKey("Building")]
         public int BuildingId { get; set; }
         public Building Building { get; set; }
