@@ -18,17 +18,18 @@ namespace RPM_Tool
 
         public void OnActionExecuting(ActionExecutingContext context)
         {
-            var controller = context.RouteData.Values["controller"]; if (controller.Equals("Home"))
+            var controller = context.RouteData.Values["controller"]; 
+            if (controller.Equals("Home"))
             {
                 if (_claimsPrincipal.IsInRole("Landlord"))
                 {
-                    context.Result = new RedirectToActionResult("Index",
-                        "Landlord", null);
+                    context.Result = new RedirectToActionResult("Index", "Landlord", null);
+
                 }
                 else if (_claimsPrincipal.IsInRole("Tenant"))
                 {
-                    context.Result = new RedirectToActionResult("Index",
-                         "Tenant", null);
+                    context.Result = new RedirectToActionResult("Index", "Tenant", null);
+
                 }
             }
         }
