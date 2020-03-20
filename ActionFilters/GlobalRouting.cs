@@ -23,12 +23,12 @@ namespace RPM_Tool
             {
                 if (_claimsPrincipal.IsInRole("Landlord"))
                 {
-                    context.Result = new RedirectToActionResult("Index", "Landlord", null);
+                    context.Result = new RedirectToActionResult("Index", "Landlords", null);
 
                 }
                 else if (_claimsPrincipal.IsInRole("Tenant"))
                 {
-                    context.Result = new RedirectToActionResult("Index", "Tenant", null);
+                    context.Result = new RedirectToActionResult("Index", "Tenants", null);
 
                 }
             }

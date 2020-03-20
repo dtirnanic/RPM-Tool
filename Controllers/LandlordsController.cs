@@ -156,5 +156,10 @@ namespace RPM_Tool.Controllers
         {
             return _context.Landlords.Any(e => e.Id == id);
         }
+
+        public IActionResult CreateBuilding()
+        {
+            return RedirectToAction("Create", "Buildings");
+        }
     }
 }

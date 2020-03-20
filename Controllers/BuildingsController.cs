@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -45,6 +47,7 @@ namespace RPM_Tool.Controllers
         }
 
         // GET: Buildings/Create
+        [Authorize(Roles = "Landlord")]
         public IActionResult Create()
         {
             return View();
@@ -149,6 +152,17 @@ namespace RPM_Tool.Controllers
         private bool BuildingExists(int id)
         {
             return _context.Building.Any(e => e.Id == id);
+        }
+        public IActionResult VerifyTenants()
+        {
+            return RedirectToAction("VerifyTenantsList", "Buildings");
+        }
+        public async Task<IActionResult> BuildingsList()
+        {
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var landlord = _context.Landlords.Where(l => l.IdentityUserId == userId).FirstOrDefault();
+            var buildings = _context.Building.Where(b => b.LandlordId == landlord.Id);
+            return View(await buildings.ToListAsync());
         }
     }
 }
