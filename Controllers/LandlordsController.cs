@@ -157,9 +157,9 @@ namespace RPM_Tool.Controllers
             return _context.Landlords.Any(e => e.Id == id);
         }
 
-        public IActionResult CreateBuilding()
+        public IActionResult ListOfBuildings()
         {
-            return RedirectToAction("Create", "Buildings");
+            return RedirectToAction("BuildingsList", "Buildings");
         }
     }
 }

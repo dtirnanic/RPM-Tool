@@ -5,6 +5,10 @@
     <UserSecretsId>aspnet-RPM_Tool-FB805F5B-B5CB-4EC1-BB84-BD096E88A517</UserSecretsId>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Content Remove="Views\Buildings\BuildingdsList.cshtml" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.1" />
