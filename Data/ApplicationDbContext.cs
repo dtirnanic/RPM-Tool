@@ -39,7 +39,7 @@ namespace RPM_Tool.Data
         }
         // All tables need to be listed as DBSet here
 
-        public DbSet<RPM_Tool.Models.Building> Building { get; set; }
+        public DbSet<RPM_Tool.Models.Building> Buildings { get; set; }
         public DbSet<RPM_Tool.Models.Building_Utility>  Building_Utilities { get; set; }
         public DbSet<RPM_Tool.Models.Building_Vendor> Building_Vendors  { get; set; }
         public DbSet<RPM_Tool.Models.Landlord> Landlords { get; set; }

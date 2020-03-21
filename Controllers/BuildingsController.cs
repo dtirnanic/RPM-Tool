@@ -25,7 +25,7 @@ namespace RPM_Tool.Controllers
         public async Task<IActionResult> Index()
 
         {
-            return View(await _context.Building.ToListAsync());
+            return View(await _context.Buildings.ToListAsync());
         }
 
         // GET: Buildings/Details/5
@@ -36,7 +36,7 @@ namespace RPM_Tool.Controllers
                 return NotFound();
             }
 
-            var building = await _context.Building
+            var building = await _context.Buildings
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (building == null)
             {
@@ -80,7 +80,7 @@ namespace RPM_Tool.Controllers
                 return NotFound();
             }
 
-            var building = await _context.Building.FindAsync(id);
+            var building = await _context.Buildings.FindAsync(id);
             if (building == null)
             {
                 return NotFound();
@@ -131,7 +131,7 @@ namespace RPM_Tool.Controllers
                 return NotFound();
             }
 
-            var building = await _context.Building
+            var building = await _context.Buildings
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (building == null)
             {
@@ -146,22 +146,22 @@ namespace RPM_Tool.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var building = await _context.Building.FindAsync(id);
-            _context.Building.Remove(building);
+            var building = await _context.Buildings.FindAsync(id);
+            _context.Buildings.Remove(building);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool BuildingExists(int id)
         {
-            return _context.Building.Any(e => e.Id == id);
+            return _context.Buildings.Any(e => e.Id == id);
         }
 
         public async Task<IActionResult> BuildingsList()
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var landlord = _context.Landlords.Where(l => l.IdentityUserId == userId).FirstOrDefault();
-            var buildings = _context.Building.Where(b => b.LandlordId == landlord.Id);
+            var buildings = _context.Buildings.Where(b => b.LandlordId == landlord.Id);
             return View(await buildings.ToListAsync());
         }
     }

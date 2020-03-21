@@ -54,7 +54,7 @@ namespace RPM_Tool.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,TenantId,RentAmount,RentPaid,StreetAddress,City,State,Zip")] Unit unit)
+        public async Task<IActionResult> Create([Bind("Id,TenantId,RentAmount,RentPaid")] Unit unit)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace RPM_Tool.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,TenantId,RentAmount,RentPaid,StreetAddress,City,State,Zip")] Unit unit)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,TenantId,RentAmount,RentPaid")] Unit unit)
         {
             if (id != unit.Id)
             {

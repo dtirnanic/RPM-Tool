@@ -10,7 +10,7 @@ using RPM_Tool.Data;
 namespace RPM_Tool.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200320013025_Initial")]
+    [Migration("20200321134134_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -50,22 +50,22 @@ namespace RPM_Tool.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "29c3f28a-e6b3-4bfc-a518-450a140bb261",
-                            ConcurrencyStamp = "59047c8b-9788-4986-8c4f-c5bd5d41f0f8",
+                            Id = "83ca56d8-09dc-40a0-aaa9-48e179227cf6",
+                            ConcurrencyStamp = "64f06c60-e365-4c15-84ef-49ca0b5fe8b7",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "1f7442aa-41b9-4678-8f42-979ec1bfb77b",
-                            ConcurrencyStamp = "70ae5dab-b908-457a-91ba-a0ae045ec948",
+                            Id = "2e1e6631-aee1-4a14-a264-fac2e6549df5",
+                            ConcurrencyStamp = "c1d33935-9ec2-4be9-bf83-968ae27f2160",
                             Name = "Landlord",
                             NormalizedName = "LANDLORD"
                         },
                         new
                         {
-                            Id = "3cf8ab67-7569-4fa8-a3ff-0b8283208205",
-                            ConcurrencyStamp = "9a27a819-0747-4e7d-bd46-60fee731ef77",
+                            Id = "0568381f-23db-4a28-9464-7c66111d622d",
+                            ConcurrencyStamp = "c18cf37e-543d-4154-bfc9-d09e2b6b617c",
                             Name = "Tenant",
                             NormalizedName = "TENANT"
                         });
@@ -253,6 +253,9 @@ namespace RPM_Tool.Migrations
                     b.Property<int>("BuildingVendorId")
                         .HasColumnType("int");
 
+                    b.Property<string>("City")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("LandlordId")
                         .HasColumnType("int");
 
@@ -265,12 +268,21 @@ namespace RPM_Tool.Migrations
                     b.Property<int>("ScheduledMaintenanceId")
                         .HasColumnType("int");
 
+                    b.Property<string>("State")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StreetAddress")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("UnitId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Zip")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Building");
+                    b.ToTable("Buildings");
                 });
 
             modelBuilder.Entity("RPM_Tool.Models.Building_Utility", b =>
@@ -455,25 +467,13 @@ namespace RPM_Tool.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("City")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("RentAmount")
                         .HasColumnType("int");
 
                     b.Property<bool>("RentPaid")
                         .HasColumnType("bit");
 
-                    b.Property<string>("State")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("StreetAddress")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("TenantId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Zip")
                         .HasColumnType("int");
 
                     b.HasKey("Id");

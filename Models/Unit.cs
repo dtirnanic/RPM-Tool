@@ -15,11 +15,6 @@ namespace RPM_Tool.Models
         public int TenantId { get; set; }
         public int RentAmount { get; set; }
         public bool RentPaid { get; set; }
-        [Display(Name = "Street Address")]
-        public string StreetAddress { get; set; }
-        public string City { get; set; }
-        public string State { get; set; }
-        public int Zip { get; set; }
 
     }  
 
