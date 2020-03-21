@@ -104,12 +104,17 @@ namespace RPM_Tool.Areas.Identity.Pages.Account
                         protocol: Request.Scheme);
                     if (Input.Role == "Landlord")
                     {
+                        await _signInManager.SignInAsync(user, isPersistent: false);
                         return RedirectToAction("Create", "Landlords");
                     }
                     else if (Input.Role == "Tenant")
                     {
+                        await _signInManager.SignInAsync(user, isPersistent: false);
                         return RedirectToAction("Create", "Tenants");
                     }
+                    else
+                        await _signInManager.SignInAsync(user, isPersistent: false);
+
                     //await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
                     //    $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 

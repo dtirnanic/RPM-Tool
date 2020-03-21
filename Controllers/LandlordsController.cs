@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -48,7 +49,7 @@ namespace RPM_Tool.Controllers
         // GET: Landlords/Create
         public IActionResult Create()
         {
-            ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id");
+            //ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id");
             return View();
         }
 
@@ -61,11 +62,12 @@ namespace RPM_Tool.Controllers
         {
             if (ModelState.IsValid)
             {
+                landlord.IdentityUserId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
                 _context.Add(landlord);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", landlord.IdentityUserId);
+            //ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", landlord.IdentityUserId);
             return View(landlord);
         }
 
