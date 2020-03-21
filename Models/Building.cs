@@ -11,6 +11,7 @@ namespace RPM_Tool.Models
     {
         [Key]
         public int Id { get; set; }
+        [Display(Name = "Building")]
         public string Name { get; set; }
         [Display(Name = "Street Address")]
         public string StreetAddress { get; set; }
@@ -19,19 +20,16 @@ namespace RPM_Tool.Models
         public int Zip { get; set; }
         [ForeignKey("Landlord")]
         public int LandlordId { get; set; }
-        [ForeignKey("Unit")]
-        public int UnitId { get; set; }
-        [ForeignKey("BuildingVendor")]
-        public int BuildingVendorId { get; set; }
+        [ForeignKey("Building_Vendor")]
+        public int Building_VendorId { get; set; }
         [ForeignKey("MortgageEscrow")]
         public int MortgageEscrowId { get; set; }
-        [ForeignKey("BuildingUtility")]
-        public int BuildingUtilityId { get; set; }
-        [ForeignKey("ScheduledMaintenance")]
-        public int ScheduledMaintenanceId { get; set; }
+        [ForeignKey("Building_Utility")]
+        public int Building_UtilityId { get; set; }
+        [ForeignKey("ScheduledMaintenance_Building")]
+        public int ScheduledMaintenance_BuildingId { get; set; }
 
         public ICollection<Building_Vendor> Building_Vendors { get; set; }
-
         public ICollection<Building_Utility> Building_Utilities { get; set; }
         public ICollection<ScheduledMaintenance_Building> ScheduledMaintenance_Buildings  { get; set; }
     }

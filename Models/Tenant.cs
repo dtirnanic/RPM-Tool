@@ -15,8 +15,8 @@ namespace RPM_Tool.Models
         [ForeignKey("IdentityUser")]
         public string IdentityUserId { get; set; }
         public IdentityUser IdentityUser { get; set; }
-        [ForeignKey("TednantMaintenanceRequest")]
-        public string TenantMaintenanceRequestId { get; set; }
+        [ForeignKey("Unit")]
+        public string UnitId { get; set; }
         [Display(Name = "First Name")]
         public string FirstName { get; set; }
         [Display(Name = "Last Name")]

@@ -10,7 +10,7 @@ using RPM_Tool.Data;
 namespace RPM_Tool.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200321134134_Initial")]
+    [Migration("20200321192907_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -50,22 +50,22 @@ namespace RPM_Tool.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "83ca56d8-09dc-40a0-aaa9-48e179227cf6",
-                            ConcurrencyStamp = "64f06c60-e365-4c15-84ef-49ca0b5fe8b7",
+                            Id = "20d0ed1f-ff04-4126-8186-2825d476fe76",
+                            ConcurrencyStamp = "ea7db920-4ae2-456d-8f51-73cc52c7c958",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "2e1e6631-aee1-4a14-a264-fac2e6549df5",
-                            ConcurrencyStamp = "c1d33935-9ec2-4be9-bf83-968ae27f2160",
+                            Id = "46ff9eac-0054-4ab1-9b0c-75d82d882a35",
+                            ConcurrencyStamp = "9f18e332-6c0e-4f54-930b-c8670af236a9",
                             Name = "Landlord",
                             NormalizedName = "LANDLORD"
                         },
                         new
                         {
-                            Id = "0568381f-23db-4a28-9464-7c66111d622d",
-                            ConcurrencyStamp = "c18cf37e-543d-4154-bfc9-d09e2b6b617c",
+                            Id = "96c16e3f-07b3-41c1-8326-c2be4e75e9f2",
+                            ConcurrencyStamp = "a8014fd6-d5c4-46d1-89cd-c33b26d444b0",
                             Name = "Tenant",
                             NormalizedName = "TENANT"
                         });
@@ -247,10 +247,10 @@ namespace RPM_Tool.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("BuildingUtilityId")
+                    b.Property<int>("Building_UtilityId")
                         .HasColumnType("int");
 
-                    b.Property<int>("BuildingVendorId")
+                    b.Property<int>("Building_VendorId")
                         .HasColumnType("int");
 
                     b.Property<string>("City")
@@ -265,7 +265,7 @@ namespace RPM_Tool.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ScheduledMaintenanceId")
+                    b.Property<int>("ScheduledMaintenance_BuildingId")
                         .HasColumnType("int");
 
                     b.Property<string>("State")
@@ -273,9 +273,6 @@ namespace RPM_Tool.Migrations
 
                     b.Property<string>("StreetAddress")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("UnitId")
-                        .HasColumnType("int");
 
                     b.Property<int>("Zip")
                         .HasColumnType("int");
@@ -432,7 +429,7 @@ namespace RPM_Tool.Migrations
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("TenantMaintenanceRequestId")
+                    b.Property<string>("UnitId")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -452,6 +449,9 @@ namespace RPM_Tool.Migrations
                     b.Property<string>("MaintenanceRequest")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("TenantId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Urgency")
                         .HasColumnType("nvarchar(max)");
 
@@ -467,14 +467,14 @@ namespace RPM_Tool.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("BuildingId")
+                        .HasColumnType("int");
+
                     b.Property<int>("RentAmount")
                         .HasColumnType("int");
 
                     b.Property<bool>("RentPaid")
                         .HasColumnType("bit");
-
-                    b.Property<int>("TenantId")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

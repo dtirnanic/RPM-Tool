@@ -109,7 +109,7 @@ namespace RPM_Tool.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!BuildingExists(building.Id))
+                    if (!BuildingExists(building.Id)) 
                     {
                         return NotFound();
                     }

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -44,6 +46,7 @@ namespace RPM_Tool.Controllers
         }
 
         // GET: Units/Create
+        [Authorize(Roles = "Landlord")]
         public IActionResult Create()
         {
             return View();
@@ -54,10 +57,11 @@ namespace RPM_Tool.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,TenantId,RentAmount,RentPaid")] Unit unit)
+        public async Task<IActionResult> Create(Unit unit, int buildingId)
         {
             if (ModelState.IsValid)
             {
+
                 _context.Add(unit);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

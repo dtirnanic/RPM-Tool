@@ -14,9 +14,6 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.TenantId)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.RentAmount)
             </th>
             <th>
@@ -28,9 +25,6 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.TenantId)
-            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.RentAmount)
             </td>

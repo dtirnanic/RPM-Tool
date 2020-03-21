@@ -13,10 +13,10 @@ namespace RPM_Tool.Models
         public int Id { get; set; }
         [ForeignKey("ScheduledMaintenance")]
         public int ScheduledMaintenanceId { get; set; }
-        public ScheduledMaintenance ScheduledMaintenance { get; set; }
         [ForeignKey("Building")]
         public int BuildingId { get; set; }
         public Building Building { get; set; }
+        public ScheduledMaintenance ScheduledMaintenance { get; set; }
 
 
     }

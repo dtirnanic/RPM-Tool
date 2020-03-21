@@ -58,11 +58,10 @@ namespace RPM_Tool.Migrations
                     State = table.Column<string>(nullable: true),
                     Zip = table.Column<int>(nullable: false),
                     LandlordId = table.Column<int>(nullable: false),
-                    UnitId = table.Column<int>(nullable: false),
-                    BuildingVendorId = table.Column<int>(nullable: false),
+                    Building_VendorId = table.Column<int>(nullable: false),
                     MortgageEscrowId = table.Column<int>(nullable: false),
-                    BuildingUtilityId = table.Column<int>(nullable: false),
-                    ScheduledMaintenanceId = table.Column<int>(nullable: false)
+                    Building_UtilityId = table.Column<int>(nullable: false),
+                    ScheduledMaintenance_BuildingId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -103,6 +102,7 @@ namespace RPM_Tool.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    TenantId = table.Column<int>(nullable: false),
                     MaintenanceRequest = table.Column<string>(nullable: true),
                     Urgency = table.Column<string>(nullable: true)
                 },
@@ -117,7 +117,7 @@ namespace RPM_Tool.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    TenantId = table.Column<int>(nullable: false),
+                    BuildingId = table.Column<int>(nullable: false),
                     RentAmount = table.Column<int>(nullable: false),
                     RentPaid = table.Column<bool>(nullable: false)
                 },
@@ -293,7 +293,7 @@ namespace RPM_Tool.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     IdentityUserId = table.Column<string>(nullable: true),
-                    TenantMaintenanceRequestId = table.Column<string>(nullable: true),
+                    UnitId = table.Column<string>(nullable: true),
                     FirstName = table.Column<string>(nullable: true),
                     LastName = table.Column<string>(nullable: true),
                     PhoneNumber = table.Column<string>(nullable: true)
@@ -390,17 +390,17 @@ namespace RPM_Tool.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "83ca56d8-09dc-40a0-aaa9-48e179227cf6", "64f06c60-e365-4c15-84ef-49ca0b5fe8b7", "Admin", "ADMIN" });
+                values: new object[] { "20d0ed1f-ff04-4126-8186-2825d476fe76", "ea7db920-4ae2-456d-8f51-73cc52c7c958", "Admin", "ADMIN" });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "2e1e6631-aee1-4a14-a264-fac2e6549df5", "c1d33935-9ec2-4be9-bf83-968ae27f2160", "Landlord", "LANDLORD" });
+                values: new object[] { "46ff9eac-0054-4ab1-9b0c-75d82d882a35", "9f18e332-6c0e-4f54-930b-c8670af236a9", "Landlord", "LANDLORD" });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "0568381f-23db-4a28-9464-7c66111d622d", "c18cf37e-543d-4154-bfc9-d09e2b6b617c", "Tenant", "TENANT" });
+                values: new object[] { "96c16e3f-07b3-41c1-8326-c2be4e75e9f2", "a8014fd6-d5c4-46d1-89cd-c33b26d444b0", "Tenant", "TENANT" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

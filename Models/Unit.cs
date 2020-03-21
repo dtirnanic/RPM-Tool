@@ -11,8 +11,8 @@ namespace RPM_Tool.Models
     {
         [Key]
         public int Id { get; set; }
-        [ForeignKey("Tenant")]
-        public int TenantId { get; set; }
+        [ForeignKey("Building")]
+        public int BuildingId { get; set; }
         public int RentAmount { get; set; }
         public bool RentPaid { get; set; }
 
