@@ -100,7 +100,7 @@ namespace RPM_Tool.Areas.Identity.Pages.Account
                     var callbackUrl = Url.Page(
                         "/Account/ConfirmEmail",
                         pageHandler: null,
-                        values: new { area = "Identity", userId = user.Id, code = code },
+                        values: new { area = "Identity", userId = user.Id, code = code }, 
                         protocol: Request.Scheme);
                     if (Input.Role == "Landlord")
                     {

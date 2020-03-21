@@ -38,6 +38,8 @@ namespace RPM_Tool.Controllers
 
             var building = await _context.Buildings
                 .FirstOrDefaultAsync(m => m.Id == id);
+            var units = await _context.Units.Where(u => u.BuildingId == building.Id).ToListAsync();
+            ViewData["Units"] = units;
             if (building == null)
             {
                 return NotFound();

@@ -3,22 +3,35 @@
 @{
     ViewData["Title"] = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    IDictionary<string, string> routeData = new Dictionary<string, string>();
+    routeData.Add("buildingId", Model.Id.ToString());
 }
 
 <h1>Details</h1>
 
+<p>
+    <a asp-action="Create" asp-controller="Units" asp-all-route-data="routeData">Create New Unit</a>
+</p>
 <div>
     <h4>Building</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Name)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Name)
         </dd>
     </dl>
 </div>
+<h1>Units</h1>
+<div>Unit # / Rent Amount</div>
+@foreach (var item in ViewData["Units"] as List<Unit>) 
+{
+    <p>
+        @item.Id @item.RentAmount
+    </p>
+}
 <div>
     <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>

@@ -47,8 +47,9 @@ namespace RPM_Tool.Controllers
 
         // GET: Units/Create
         [Authorize(Roles = "Landlord")]
-        public IActionResult Create()
+        public IActionResult Create(int buildingId)
         {
+            ViewData["BuildingId"] = buildingId;
             return View();
         }
 
@@ -69,6 +70,7 @@ namespace RPM_Tool.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["BuildingId"] = buildingId;
             return View(unit);
         }
 
