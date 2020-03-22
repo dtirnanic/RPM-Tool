@@ -10,8 +10,8 @@ using RPM_Tool.Data;
 namespace RPM_Tool.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200321192907_Initial")]
-    partial class Initial
+    [Migration("20200322193626_UniId")]
+    partial class UniId
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -50,22 +50,22 @@ namespace RPM_Tool.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "20d0ed1f-ff04-4126-8186-2825d476fe76",
-                            ConcurrencyStamp = "ea7db920-4ae2-456d-8f51-73cc52c7c958",
+                            Id = "85acd9e3-5375-469a-9fdd-498422777029",
+                            ConcurrencyStamp = "62b8dd79-daa7-4980-8450-6b2342dd1146",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "46ff9eac-0054-4ab1-9b0c-75d82d882a35",
-                            ConcurrencyStamp = "9f18e332-6c0e-4f54-930b-c8670af236a9",
+                            Id = "24d0be16-ed61-4892-8644-ab9889e70d8b",
+                            ConcurrencyStamp = "32a1f2fb-6e4d-4312-9429-71b0fe5894bc",
                             Name = "Landlord",
                             NormalizedName = "LANDLORD"
                         },
                         new
                         {
-                            Id = "96c16e3f-07b3-41c1-8326-c2be4e75e9f2",
-                            ConcurrencyStamp = "a8014fd6-d5c4-46d1-89cd-c33b26d444b0",
+                            Id = "299effdb-e380-4198-b71b-fe6f923d995b",
+                            ConcurrencyStamp = "4568d802-9d77-4f3a-88e9-07ed64c77d22",
                             Name = "Tenant",
                             NormalizedName = "TENANT"
                         });
@@ -429,8 +429,8 @@ namespace RPM_Tool.Migrations
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UnitId")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("UnitId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -475,6 +475,9 @@ namespace RPM_Tool.Migrations
 
                     b.Property<bool>("RentPaid")
                         .HasColumnType("bit");
+
+                    b.Property<string>("UnitNumber")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

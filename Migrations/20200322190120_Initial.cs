@@ -118,6 +118,7 @@ namespace RPM_Tool.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     BuildingId = table.Column<int>(nullable: false),
+                    UnitNumber = table.Column<string>(nullable: true),
                     RentAmount = table.Column<int>(nullable: false),
                     RentPaid = table.Column<bool>(nullable: false)
                 },
@@ -390,17 +391,17 @@ namespace RPM_Tool.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "20d0ed1f-ff04-4126-8186-2825d476fe76", "ea7db920-4ae2-456d-8f51-73cc52c7c958", "Admin", "ADMIN" });
+                values: new object[] { "459e23ae-93a7-4012-b6b6-0013cbe9708a", "01bc4cd4-8486-412e-98d5-17172eb3610d", "Admin", "ADMIN" });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "46ff9eac-0054-4ab1-9b0c-75d82d882a35", "9f18e332-6c0e-4f54-930b-c8670af236a9", "Landlord", "LANDLORD" });
+                values: new object[] { "7dc92778-6de4-45e5-81fc-8d4b6500d1fe", "a40fbdbd-81c6-4128-9c19-29704cacc71d", "Landlord", "LANDLORD" });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "96c16e3f-07b3-41c1-8326-c2be4e75e9f2", "a8014fd6-d5c4-46d1-89cd-c33b26d444b0", "Tenant", "TENANT" });
+                values: new object[] { "00e608ac-3614-4443-a392-a6449ebdc30b", "fff652b9-a798-44bf-8a78-c606aacd1c88", "Tenant", "TENANT" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

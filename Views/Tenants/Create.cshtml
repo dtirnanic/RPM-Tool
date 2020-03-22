@@ -1,4 +1,4 @@
-﻿@model RPM_Tool.Models.Tenant
+﻿@model RPM_Tool.Models.TenantViewModel
 
 @{
     ViewData["Title"] = "Create";
@@ -28,6 +28,9 @@
                 <input asp-for="PhoneNumber" class="form-control" />
                 <span asp-validation-for="PhoneNumber" class="text-danger"></span>
             </div>
+            <select asp-for="UnitId"
+                    asp-items="@(new SelectList(Model.Units,"Id","Id"))">                
+            </select>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>

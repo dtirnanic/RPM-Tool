@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -48,8 +49,14 @@ namespace RPM_Tool.Controllers
         // GET: Tenants/Create
         public IActionResult Create()
         {
+            var unitlist = _context.Units;
+            var tenant = new TenantViewModel();
+            foreach (Unit unit in unitlist)
+            {
+                tenant.Units.Add(unit);
+            }
             ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id");
-            return View();
+            return View(tenant);
         }
 
         // POST: Tenants/Create
@@ -57,16 +64,26 @@ namespace RPM_Tool.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,IdentityUserId,TenantMaintenanceRequestId,FirstName,LastName,PhoneNumber")] Tenant tenant)
+        public async Task<IActionResult> Create(TenantViewModel model)
         {
             if (ModelState.IsValid)
             {
+                var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                Tenant tenant = new Tenant()
+                {
+                    IdentityUserId = userId,
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    PhoneNumber = model.PhoneNumber,
+                    UnitId = model.UnitId
+                };
+                               
                 _context.Add(tenant);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", tenant.IdentityUserId);
-            return View(tenant);
+            //ViewData["UnitId"] = new SelectList(_context.Users, "Id", "Unit Number", model.Units.FirstOrDefault());
+            return View();
         }
 
         // GET: Tenants/Edit/5
@@ -156,5 +173,6 @@ namespace RPM_Tool.Controllers
         {
             return _context.Tenants.Any(e => e.Id == id);
         }
+
     }
 }

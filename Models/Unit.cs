@@ -13,7 +13,11 @@ namespace RPM_Tool.Models
         public int Id { get; set; }
         [ForeignKey("Building")]
         public int BuildingId { get; set; }
+        [Display(Name = "Unit Number")]
+        public string UnitNumber { get; set; }
+        [Display(Name = "Rent Amount")]
         public int RentAmount { get; set; }
+        [Display(Name = "Rent paid for the month")]
         public bool RentPaid { get; set; }
 
     }  

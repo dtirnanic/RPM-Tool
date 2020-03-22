@@ -49,7 +49,7 @@ namespace RPM_Tool.Controllers
         }
 
         // GET: Buildings/Create
-        [Authorize(Roles = "Landlord")]
+        [Authorize(Roles = "Landlord")] 
         public IActionResult Create()
         {
             return View();
