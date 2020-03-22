@@ -8,6 +8,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using RPM_Tool.Data;
 using RPM_Tool.Models;
+using Twilio;
+using Twilio.Rest.Api.V2010.Account;
+using Twilio.Types;
 
 namespace RPM_Tool.Controllers
 {
@@ -174,5 +177,23 @@ namespace RPM_Tool.Controllers
             return _context.Tenants.Any(e => e.Id == id);
         }
 
+        public async Task<IActionResult> MaintenanceRequest(int id)
+        {
+            //tenant -> unit -> building -> landlord
+            //we need landlord phone #
+            //send text message (twilio)
+            var tenant = await _context.Tenants.FindAsync(id);
+            var unit = await _context.Units.FindAsync(tenant.UnitId);
+            var building = await _context.Buildings.FindAsync(unit.BuildingId);
+            var landlord = await _context.Landlords.FindAsync(building.LandlordId);
+            //https://www.twilio.com/docs/libraries/csharp-dotnet
+            TwilioClient.Init("AC78487dbd904b432a52806f8f5473598a", "268868afbe3ffbe6922d56d817023e1c");  //account id, auth token
+            var to = new PhoneNumber($"+1{landlord.PhoneNumber}");
+            var message = MessageResource.Create(
+                to,
+                from: new PhoneNumber(@"+14144486404"),  //twilio number
+                body: $"{tenant.FirstName} {tenant.LastName} has made a maintenance request");
+            return RedirectToAction(nameof(Details), id);
+        }
     }
 }
