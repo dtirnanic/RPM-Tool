@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RPM_Tool.Data;
 
 namespace RPM_Tool.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200322224435_TwilioAccounts")]
+    partial class TwilioAccounts
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,22 +50,22 @@ namespace RPM_Tool.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "fc5655fa-449d-4123-87ea-8dd0a0971814",
-                            ConcurrencyStamp = "bd486be1-6cdc-4160-8055-26417ed73f8e",
+                            Id = "7e872ecd-076f-4e07-8c6a-a1bcccaefb86",
+                            ConcurrencyStamp = "d49e438e-0112-4a86-a6e3-f8b56f993b0e",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "d1a7ef11-6a9a-4279-8f3e-629b97af9d61",
-                            ConcurrencyStamp = "ae2a4dbf-fcfd-46be-92a0-ada64107135b",
+                            Id = "271b8ab2-cc98-4c9d-b9fe-962b6268e5a0",
+                            ConcurrencyStamp = "7e43ef01-75ae-4df2-8027-48354e75097a",
                             Name = "Landlord",
                             NormalizedName = "LANDLORD"
                         },
                         new
                         {
-                            Id = "e21d5a22-0940-41d8-ba9f-f9c4d64b0c8d",
-                            ConcurrencyStamp = "3553ce81-6a86-4589-9b51-c7ea7f4016f3",
+                            Id = "39fcbb20-2d30-4fdc-858f-00d38afe4a12",
+                            ConcurrencyStamp = "24244762-280f-4c4c-a852-f0f7e204e6c9",
                             Name = "Tenant",
                             NormalizedName = "TENANT"
                         });
@@ -469,9 +471,6 @@ namespace RPM_Tool.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("AuthToken")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FromNumber")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

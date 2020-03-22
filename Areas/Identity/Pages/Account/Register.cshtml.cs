@@ -113,7 +113,10 @@ namespace RPM_Tool.Areas.Identity.Pages.Account
                         return RedirectToAction("Create", "Tenants");
                     }
                     else
+                    {
                         await _signInManager.SignInAsync(user, isPersistent: false);
+                        return RedirectToAction("Index", "Admin");
+                    }
 
                     //await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
                     //    $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
