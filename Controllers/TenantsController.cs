@@ -31,22 +31,11 @@ namespace RPM_Tool.Controllers
         }
 
         // GET: Tenants/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public IActionResult Details()
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var tenant = await _context.Tenants
-                .Include(t => t.IdentityUser)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (tenant == null)
-            {
-                return NotFound();
-            }
-
-            return View(tenant);
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var tenant2 = _context.Tenants.Where(x => x.IdentityUserId == userId).FirstOrDefault();
+            return View(tenant2);
         }
 
         // GET: Tenants/Create
@@ -83,7 +72,7 @@ namespace RPM_Tool.Controllers
                                
                 _context.Add(tenant);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Details));
             }
             //ViewData["UnitId"] = new SelectList(_context.Users, "Id", "Unit Number", model.Units.FirstOrDefault());
             return View();
@@ -180,18 +169,17 @@ namespace RPM_Tool.Controllers
         public async Task<IActionResult> MaintenanceRequest(int id)
         {
             //tenant -> unit -> building -> landlord
-            //we need landlord phone #
+            //need landlord phone #
             //send text message (twilio)
             var tenant = await _context.Tenants.FindAsync(id);
             var unit = await _context.Units.FindAsync(tenant.UnitId);
             var building = await _context.Buildings.FindAsync(unit.BuildingId);
             var landlord = await _context.Landlords.FindAsync(building.LandlordId);
             //https://www.twilio.com/docs/libraries/csharp-dotnet
-            TwilioClient.Init("AC78487dbd904b432a52806f8f5473598a", "268868afbe3ffbe6922d56d817023e1c");  //account id, auth token
             var to = new PhoneNumber($"+1{landlord.PhoneNumber}");
             var message = MessageResource.Create(
                 to,
-                from: new PhoneNumber(@"+14144486404"),  //twilio number
+                from: new PhoneNumber(@"+15109747715"),  //twilio number
                 body: $"{tenant.FirstName} {tenant.LastName} has made a maintenance request");
             return RedirectToAction(nameof(Details), id);
         }

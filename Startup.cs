@@ -14,6 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
+using Twilio;
 
 namespace RPM_Tool
 {
@@ -40,7 +41,8 @@ namespace RPM_Tool
             services.AddScoped<ClaimsPrincipal>(s => s.GetService<IHttpContextAccessor>().HttpContext.User);
 
             services.AddControllers(config => config.Filters.Add(typeof(GlobalRouting)));
-       	
+            TwilioClient.Init("AC6f3bc50cb1c4d8d19b1c2081a4c9fc32", "7d4cf4e4c1f686a545769572248b4628");  //account id, auth token
+
 
             services.AddControllersWithViews();
             services.AddRazorPages();

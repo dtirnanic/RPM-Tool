@@ -28,7 +28,7 @@ namespace RPM_Tool
                 }
                 else if (_claimsPrincipal.IsInRole("Tenant"))
                 {
-                    context.Result = new RedirectToActionResult("Index", "Tenants", null);
+                    context.Result = new RedirectToActionResult("Details", "Tenants", null);
 
                 }
             }

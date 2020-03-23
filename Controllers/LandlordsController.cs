@@ -8,6 +8,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using RPM_Tool.Data;
 using RPM_Tool.Models;
+using Twilio;
+using Twilio.Rest.Api.V2010.Account;
+using Twilio.Types;
 
 namespace RPM_Tool.Controllers
 {
@@ -65,7 +68,7 @@ namespace RPM_Tool.Controllers
                 landlord.IdentityUserId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
                 _context.Add(landlord);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(ListOfBuildings));
             }
             //ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", landlord.IdentityUserId);
             return View(landlord);
@@ -161,6 +164,20 @@ namespace RPM_Tool.Controllers
 
         public IActionResult ListOfBuildings()
         {
+            return RedirectToAction("BuildingsList", "Buildings");
+        }
+
+        public IActionResult Tenant24HrNotice(int id)//pulling tenant id currently
+        {
+            var tenant = _context.Tenants.Where(t => t.Id == id).FirstOrDefault();
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var landlord = _context.Landlords.Where(l => l.IdentityUserId == userId).FirstOrDefault();
+            //https://www.twilio.com/docs/libraries/csharp-dotnet
+            var to = new PhoneNumber($"+1{tenant.PhoneNumber}");
+            var message = MessageResource.Create(
+                to,
+                from: new PhoneNumber(@"+15109747715"),  //twilio number
+                body: $"{landlord.FirstName} {landlord.LastName} we will need access to your unit within 24hrs");
             return RedirectToAction("BuildingsList", "Buildings");
         }
     }

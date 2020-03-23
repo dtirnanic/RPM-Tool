@@ -23,10 +23,5 @@ namespace RPM_Tool.Models
         [Display(Name = "Units")]
         public List<Unit> Units { get; set; } = new List<Unit>();
 
-        //public TenantViewModel()
-        //{
-        //    this.Units = new List<Unit>();
-        //}
-
     }
 }
