@@ -166,5 +166,41 @@ namespace RPM_Tool.Controllers
             var buildings = _context.Buildings.Where(b => b.LandlordId == landlord.Id);
             return View(await buildings.ToListAsync());
         }
+
+        [Authorize(Roles = "Landlord")]
+        public IActionResult AddScheduledMaintenanceItem()
+        {
+
+            ScheduledMaintenance scheduledMaintenance = new ScheduledMaintenance();
+            return View(scheduledMaintenance);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddScheduledMaintenanceItem(int id, ScheduledMaintenance scheduledMaintenance)
+        {
+            //landlord -> building -> scheduled maintenance_Building -> scheduledMaintenance
+            var building = await _context.Buildings.FindAsync(id);
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var landlord = _context.Landlords.Where(l => l.IdentityUserId == userId).FirstOrDefault();
+           
+            
+            _context.Add(scheduledMaintenance);
+            await _context.SaveChangesAsync();
+            CreateRelationship(id);
+            return RedirectToAction(nameof(Details));
+
+
+        }
+
+        public void CreateRelationship(int id)
+        {
+            ScheduledMaintenance_Building test = new ScheduledMaintenance_Building();
+            var building = _context.Buildings.Find(id);
+            var maint = _context.ScheduledMaintenances.Last();
+            test.BuildingId = building.Id;
+            test.ScheduledMaintenanceId = maint.Id;
+            _context.Add(test);
+            _context.SaveChanges();
+        }
     }
 }

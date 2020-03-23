@@ -167,7 +167,7 @@ namespace RPM_Tool.Controllers
             return RedirectToAction("BuildingsList", "Buildings");
         }
 
-        public IActionResult Tenant24HrNotice(int id)//pulling tenant id currently
+        public IActionResult Tenant24HrNotice(int id)//pulling tenant id currentlygit add .
         {
             var tenant = _context.Tenants.Where(t => t.Id == id).FirstOrDefault();
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -180,5 +180,7 @@ namespace RPM_Tool.Controllers
                 body: $"{landlord.FirstName} {landlord.LastName} we will need access to your unit within 24hrs");
             return RedirectToAction("BuildingsList", "Buildings");
         }
+
+
     }
 }

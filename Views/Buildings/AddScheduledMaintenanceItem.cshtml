@@ -1,0 +1,39 @@
+﻿@model RPM_Tool.Models.ScheduledMaintenance
+
+@{
+    ViewData["Title"] = "AddScheduledMaintenanceItem";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>AddScheduledMaintenanceItem</h1>
+
+<h4>ScheduledMaintenance</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AddScheduledMaintenanceItem">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="MaintenanceItem" class="control-label"></label>
+                <input asp-for="MaintenanceItem" class="form-control" />
+                <span asp-validation-for="MaintenanceItem" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ScheduledTime" class="control-label"></label>
+                <input asp-for="ScheduledTime" class="form-control" />
+                <span asp-validation-for="ScheduledTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
