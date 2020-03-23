@@ -96,7 +96,7 @@ namespace RPM_Tool.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,IdentityUserId,FirstName,LastName,PhoneNumber")] Landlord landlord)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,IdentityUserId,FirstName,LastName,PhoneNumber")] Landlord landlord) 
         {
             if (id != landlord.Id)
             {
@@ -173,7 +173,7 @@ namespace RPM_Tool.Controllers
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var landlord = _context.Landlords.Where(l => l.IdentityUserId == userId).FirstOrDefault();
             //https://www.twilio.com/docs/libraries/csharp-dotnet
-            var to = new PhoneNumber($"+1{tenant.PhoneNumber}");
+            var to = new PhoneNumber($"+1{tenant.PhoneNumber}"); 
             var message = MessageResource.Create(
                 to,
                 from: new PhoneNumber(@"+15109747715"),  //twilio number
