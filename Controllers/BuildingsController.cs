@@ -187,7 +187,7 @@ namespace RPM_Tool.Controllers
             _context.Add(scheduledMaintenance);
             await _context.SaveChangesAsync();
             CreateRelationship(id);
-            return RedirectToAction(nameof(Details));
+            return RedirectToAction(nameof(Details)); 
 
 
         }
