@@ -9,8 +9,6 @@ namespace RPM_Tool.Models
 {
     public class Building_Utility
     {
-        [Key]
-        public int Id { get; set; }
         [ForeignKey("Utility")]
         public int UtilityId { get; set; }
         public Utility Utility { get; set; }

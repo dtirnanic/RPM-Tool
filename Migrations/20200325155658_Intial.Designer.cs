@@ -10,8 +10,8 @@ using RPM_Tool.Data;
 namespace RPM_Tool.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200324184832_Initial")]
-    partial class Initial
+    [Migration("20200325155658_Intial")]
+    partial class Intial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -50,22 +50,22 @@ namespace RPM_Tool.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "08a482cc-e36e-470d-ad7f-d184707091c1",
-                            ConcurrencyStamp = "e5d55deb-8301-469a-89ba-c8e26e99a376",
+                            Id = "eb39e7e2-b745-44b9-b701-1ea5b11cba76",
+                            ConcurrencyStamp = "494cc4c6-842b-404a-b882-4d84949a9452",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "5296e757-8f5c-42d5-8c99-7cffbe7ef47a",
-                            ConcurrencyStamp = "6f6b802a-c4b8-46ec-af18-f6e3ac3a0c6a",
+                            Id = "bf79595e-55f3-4f1b-8bc4-63f94ea58510",
+                            ConcurrencyStamp = "9bf7581a-21ac-4094-8b18-4ca6f494045a",
                             Name = "Landlord",
                             NormalizedName = "LANDLORD"
                         },
                         new
                         {
-                            Id = "03c1c911-878d-46d8-88c7-e79a4681c04c",
-                            ConcurrencyStamp = "ca358ae7-8f03-4297-aaf6-a30405657160",
+                            Id = "676fec7e-98b8-44f9-bc84-895edd8a13d8",
+                            ConcurrencyStamp = "95389eb5-99cb-48f0-ba01-d14ece47dd31",
                             Name = "Tenant",
                             NormalizedName = "TENANT"
                         });
@@ -273,48 +273,49 @@ namespace RPM_Tool.Migrations
                     b.ToTable("Buildings");
                 });
 
+            modelBuilder.Entity("RPM_Tool.Models.Building_ScheduledMaintenance", b =>
+                {
+                    b.Property<int>("BuildingId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ScheduledMaintenanceId")
+                        .HasColumnType("int");
+
+                    b.HasKey("BuildingId", "ScheduledMaintenanceId");
+
+                    b.HasIndex("ScheduledMaintenanceId");
+
+                    b.ToTable("Building_ScheduledMaintenance");
+                });
+
             modelBuilder.Entity("RPM_Tool.Models.Building_Utility", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<int>("BuildingId")
                         .HasColumnType("int");
 
                     b.Property<int>("UtilityId")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("BuildingId");
+                    b.HasKey("BuildingId", "UtilityId");
 
                     b.HasIndex("UtilityId");
 
-                    b.ToTable("Building_Utilities");
+                    b.ToTable("Building_Utility");
                 });
 
             modelBuilder.Entity("RPM_Tool.Models.Building_Vendor", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<int>("BuildingId")
                         .HasColumnType("int");
 
                     b.Property<int>("VendorId")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("BuildingId");
+                    b.HasKey("BuildingId", "VendorId");
 
                     b.HasIndex("VendorId");
 
-                    b.ToTable("Building_Vendors");
+                    b.ToTable("Building_Vendor");
                 });
 
             modelBuilder.Entity("RPM_Tool.Models.Landlord", b =>
@@ -377,28 +378,6 @@ namespace RPM_Tool.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ScheduledMaintenances");
-                });
-
-            modelBuilder.Entity("RPM_Tool.Models.ScheduledMaintenance_Building", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("BuildingId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ScheduledMaintenanceId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BuildingId");
-
-                    b.HasIndex("ScheduledMaintenanceId");
-
-                    b.ToTable("ScheduledMaintenance_Buildings");
                 });
 
             modelBuilder.Entity("RPM_Tool.Models.Tenant", b =>
@@ -574,6 +553,21 @@ namespace RPM_Tool.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("RPM_Tool.Models.Building_ScheduledMaintenance", b =>
+                {
+                    b.HasOne("RPM_Tool.Models.Building", "Building")
+                        .WithMany("ScheduledMaintenance_Buildings")
+                        .HasForeignKey("BuildingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("RPM_Tool.Models.ScheduledMaintenance", "ScheduledMaintenance")
+                        .WithMany("ScheduledMaintenance_Buildings")
+                        .HasForeignKey("ScheduledMaintenanceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("RPM_Tool.Models.Building_Utility", b =>
                 {
                     b.HasOne("RPM_Tool.Models.Building", "Building")
@@ -609,21 +603,6 @@ namespace RPM_Tool.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "IdentityUser")
                         .WithMany()
                         .HasForeignKey("IdentityUserId");
-                });
-
-            modelBuilder.Entity("RPM_Tool.Models.ScheduledMaintenance_Building", b =>
-                {
-                    b.HasOne("RPM_Tool.Models.Building", "Building")
-                        .WithMany("ScheduledMaintenance_Buildings")
-                        .HasForeignKey("BuildingId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("RPM_Tool.Models.ScheduledMaintenance", "ScheduledMaintenance")
-                        .WithMany("ScheduledMaintenance_Buildings")
-                        .HasForeignKey("ScheduledMaintenanceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("RPM_Tool.Models.Tenant", b =>

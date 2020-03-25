@@ -192,7 +192,7 @@ namespace RPM_Tool.Controllers
 
         public void CreateRelationship(int id)
         {
-            ScheduledMaintenance_Building test = new ScheduledMaintenance_Building();
+            Building_ScheduledMaintenance test = new Building_ScheduledMaintenance();
             var building = _context.Buildings.Find(id);
             var maint = _context.ScheduledMaintenances.Last();
             test.BuildingId = building.Id;

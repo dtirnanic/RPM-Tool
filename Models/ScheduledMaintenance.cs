@@ -14,6 +14,6 @@ namespace RPM_Tool.Models
         public string MaintenanceItem { get; set; }
         [Display(Name = "Scheduled Time")]
         public DateTime ScheduledTime { get; set; }
-        public ICollection<ScheduledMaintenance_Building> ScheduledMaintenance_Buildings { get; set; }
+        public ICollection<Building_ScheduledMaintenance> ScheduledMaintenance_Buildings { get; set; }
     }
 }

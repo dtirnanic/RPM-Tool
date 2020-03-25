@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace RPM_Tool.Models
 {
-    public class Building_Vendor
+    public class Building_ScheduledMaintenance
     {
-        [ForeignKey("Vendor")]
-        public int VendorId { get; set; }
-        public Vendor Vendor { get; set; }
+        [ForeignKey("ScheduledMaintenance")]
+        public int ScheduledMaintenanceId { get; set; }
+        public ScheduledMaintenance ScheduledMaintenance { get; set; }
         [ForeignKey("Building")]
         public int BuildingId { get; set; }
         public Building Building { get; set; }
