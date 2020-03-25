@@ -24,6 +24,9 @@
         </dd>
     </dl>
 </div>
+<div>
+    <a asp-action="AddScheduledMaintenanceItem" asp-route-id="@Model.Id">Add Maintenance Item</a> 
+</div>
 <h1>Units</h1>
 <div>Unit # / Rent Amount</div>
 @foreach (var item in ViewData["Units"] as List<Unit>) 
@@ -34,6 +37,5 @@
 }
 <div>
     <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="AddScheduledMaintenanceItem" asp-route-id="@Model.Id">Add Maintenance Item</a> |
     <a asp-action="Index">Back to List</a>
 </div>

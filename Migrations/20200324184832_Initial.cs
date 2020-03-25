@@ -52,16 +52,13 @@ namespace RPM_Tool.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    LandlordId = table.Column<int>(nullable: false),
+                    MortgageEscrowId = table.Column<int>(nullable: false),
                     Name = table.Column<string>(nullable: true),
                     StreetAddress = table.Column<string>(nullable: true),
                     City = table.Column<string>(nullable: true),
                     State = table.Column<string>(nullable: true),
-                    Zip = table.Column<int>(nullable: false),
-                    LandlordId = table.Column<int>(nullable: false),
-                    Building_VendorId = table.Column<int>(nullable: false),
-                    MortgageEscrowId = table.Column<int>(nullable: false),
-                    Building_UtilityId = table.Column<int>(nullable: false),
-                    ScheduledMaintenance_BuildingId = table.Column<int>(nullable: false)
+                    Zip = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -294,7 +291,7 @@ namespace RPM_Tool.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     IdentityUserId = table.Column<string>(nullable: true),
-                    UnitId = table.Column<string>(nullable: true),
+                    UnitId = table.Column<int>(nullable: false),
                     FirstName = table.Column<string>(nullable: true),
                     LastName = table.Column<string>(nullable: true),
                     PhoneNumber = table.Column<string>(nullable: true)
@@ -391,17 +388,17 @@ namespace RPM_Tool.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "459e23ae-93a7-4012-b6b6-0013cbe9708a", "01bc4cd4-8486-412e-98d5-17172eb3610d", "Admin", "ADMIN" });
+                values: new object[] { "08a482cc-e36e-470d-ad7f-d184707091c1", "e5d55deb-8301-469a-89ba-c8e26e99a376", "Admin", "ADMIN" });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "7dc92778-6de4-45e5-81fc-8d4b6500d1fe", "a40fbdbd-81c6-4128-9c19-29704cacc71d", "Landlord", "LANDLORD" });
+                values: new object[] { "5296e757-8f5c-42d5-8c99-7cffbe7ef47a", "6f6b802a-c4b8-46ec-af18-f6e3ac3a0c6a", "Landlord", "LANDLORD" });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "00e608ac-3614-4443-a392-a6449ebdc30b", "fff652b9-a798-44bf-8a78-c606aacd1c88", "Tenant", "TENANT" });
+                values: new object[] { "03c1c911-878d-46d8-88c7-e79a4681c04c", "ca358ae7-8f03-4297-aaf6-a30405657160", "Tenant", "TENANT" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

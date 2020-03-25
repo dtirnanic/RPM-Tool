@@ -182,13 +182,11 @@ namespace RPM_Tool.Controllers
             var building = await _context.Buildings.FindAsync(id);
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var landlord = _context.Landlords.Where(l => l.IdentityUserId == userId).FirstOrDefault();
-           
-            
-            _context.Add(scheduledMaintenance);
-            await _context.SaveChangesAsync();
+            _context.ScheduledMaintenances.Add(scheduledMaintenance);
+            //await _context.SaveChangesAsync(); 
+            _context.SaveChanges();
             CreateRelationship(id);
             return RedirectToAction(nameof(Details)); 
-
 
         }
 
