@@ -9,7 +9,7 @@ namespace RPM_Tool.Models
     public class Utility
     {
         [Key]
-        public int Id { get; set; }
+        public int UtilityId { get; set; }
         [Display(Name = "Utility Provider")]
         public string UtilityProvider { get; set; }
         [Display(Name = "Utility Type")]
@@ -21,3 +21,4 @@ namespace RPM_Tool.Models
         public ICollection<Building_Utility> Building_Utilities { get; set; }
     }
 }
+

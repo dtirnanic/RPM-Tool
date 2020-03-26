@@ -9,10 +9,10 @@ namespace RPM_Tool.Models
 {
     public class Building_Vendor
     {
-        [ForeignKey("Vendor")]
+      
         public int VendorId { get; set; }
         public Vendor Vendor { get; set; }
-        [ForeignKey("Building")]
+     
         public int BuildingId { get; set; }
         public Building Building { get; set; }
 

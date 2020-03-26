@@ -13,7 +13,7 @@ namespace RPM_Tool.Models
         [Display(Name = "Mortgage Provider")]
         public string MortgageProvider {get;set;}
         [Display(Name = "Mortgage and Escrow Bill")]
-        public string MortgageAndEscrowBill { get; set; }
+        public double MortgageAndEscrowBill { get; set; }
 
     }
 }

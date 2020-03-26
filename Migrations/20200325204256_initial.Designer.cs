@@ -10,8 +10,8 @@ using RPM_Tool.Data;
 namespace RPM_Tool.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200325155658_Intial")]
-    partial class Intial
+    [Migration("20200325204256_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -50,22 +50,22 @@ namespace RPM_Tool.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "eb39e7e2-b745-44b9-b701-1ea5b11cba76",
-                            ConcurrencyStamp = "494cc4c6-842b-404a-b882-4d84949a9452",
+                            Id = "fcd43206-53fd-4fb4-b161-4ce16c71db4f",
+                            ConcurrencyStamp = "aaf3626f-0e7b-46ea-a4dc-4c9424e6783e",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "bf79595e-55f3-4f1b-8bc4-63f94ea58510",
-                            ConcurrencyStamp = "9bf7581a-21ac-4094-8b18-4ca6f494045a",
+                            Id = "45e39e7f-3e26-4630-8330-b2f6d88ce199",
+                            ConcurrencyStamp = "6bfb6283-f3e6-45b9-bc6a-094a5975b554",
                             Name = "Landlord",
                             NormalizedName = "LANDLORD"
                         },
                         new
                         {
-                            Id = "676fec7e-98b8-44f9-bc84-895edd8a13d8",
-                            ConcurrencyStamp = "95389eb5-99cb-48f0-ba01-d14ece47dd31",
+                            Id = "71905dfa-3691-4494-aead-091df899dbaf",
+                            ConcurrencyStamp = "95c5410d-5696-42cd-99d0-12e3c2f5b4b0",
                             Name = "Tenant",
                             NormalizedName = "TENANT"
                         });
@@ -242,7 +242,7 @@ namespace RPM_Tool.Migrations
 
             modelBuilder.Entity("RPM_Tool.Models.Building", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("BuildingId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -268,7 +268,7 @@ namespace RPM_Tool.Migrations
                     b.Property<int>("Zip")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("BuildingId");
 
                     b.ToTable("Buildings");
                 });
@@ -351,8 +351,8 @@ namespace RPM_Tool.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("MortgageAndEscrowBill")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<double>("MortgageAndEscrowBill")
+                        .HasColumnType("float");
 
                     b.Property<string>("MortgageProvider")
                         .HasColumnType("nvarchar(max)");
@@ -364,7 +364,7 @@ namespace RPM_Tool.Migrations
 
             modelBuilder.Entity("RPM_Tool.Models.ScheduledMaintenance", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("ScheduledMaintenanceId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -375,7 +375,7 @@ namespace RPM_Tool.Migrations
                     b.Property<DateTime>("ScheduledTime")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("Id");
+                    b.HasKey("ScheduledMaintenanceId");
 
                     b.ToTable("ScheduledMaintenances");
                 });
@@ -556,13 +556,13 @@ namespace RPM_Tool.Migrations
             modelBuilder.Entity("RPM_Tool.Models.Building_ScheduledMaintenance", b =>
                 {
                     b.HasOne("RPM_Tool.Models.Building", "Building")
-                        .WithMany("ScheduledMaintenance_Buildings")
+                        .WithMany("Building_ScheduledMaintenances")
                         .HasForeignKey("BuildingId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("RPM_Tool.Models.ScheduledMaintenance", "ScheduledMaintenance")
-                        .WithMany("ScheduledMaintenance_Buildings")
+                        .WithMany("Building_ScheduledMaintenances")
                         .HasForeignKey("ScheduledMaintenanceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

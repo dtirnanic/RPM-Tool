@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace RPM_Tool.Migrations
 {
-    public partial class Intial : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -50,7 +50,7 @@ namespace RPM_Tool.Migrations
                 name: "Buildings",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    BuildingId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     LandlordId = table.Column<int>(nullable: false),
                     MortgageEscrowId = table.Column<int>(nullable: false),
@@ -62,7 +62,7 @@ namespace RPM_Tool.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Buildings", x => x.Id);
+                    table.PrimaryKey("PK_Buildings", x => x.BuildingId);
                 });
 
             migrationBuilder.CreateTable(
@@ -72,7 +72,7 @@ namespace RPM_Tool.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     MortgageProvider = table.Column<string>(nullable: true),
-                    MortgageAndEscrowBill = table.Column<string>(nullable: true)
+                    MortgageAndEscrowBill = table.Column<double>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -83,14 +83,14 @@ namespace RPM_Tool.Migrations
                 name: "ScheduledMaintenances",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    ScheduledMaintenanceId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     MaintenanceItem = table.Column<string>(nullable: true),
                     ScheduledTime = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ScheduledMaintenances", x => x.Id);
+                    table.PrimaryKey("PK_ScheduledMaintenances", x => x.ScheduledMaintenanceId);
                 });
 
             migrationBuilder.CreateTable(
@@ -321,13 +321,13 @@ namespace RPM_Tool.Migrations
                         name: "FK_Building_ScheduledMaintenance_Buildings_BuildingId",
                         column: x => x.BuildingId,
                         principalTable: "Buildings",
-                        principalColumn: "Id",
+                        principalColumn: "BuildingId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Building_ScheduledMaintenance_ScheduledMaintenances_ScheduledMaintenanceId",
                         column: x => x.ScheduledMaintenanceId,
                         principalTable: "ScheduledMaintenances",
-                        principalColumn: "Id",
+                        principalColumn: "ScheduledMaintenanceId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -345,7 +345,7 @@ namespace RPM_Tool.Migrations
                         name: "FK_Building_Utility_Buildings_BuildingId",
                         column: x => x.BuildingId,
                         principalTable: "Buildings",
-                        principalColumn: "Id",
+                        principalColumn: "BuildingId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Building_Utility_Utilities_UtilityId",
@@ -369,7 +369,7 @@ namespace RPM_Tool.Migrations
                         name: "FK_Building_Vendor_Buildings_BuildingId",
                         column: x => x.BuildingId,
                         principalTable: "Buildings",
-                        principalColumn: "Id",
+                        principalColumn: "BuildingId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Building_Vendor_Vendors_VendorId",
@@ -382,17 +382,17 @@ namespace RPM_Tool.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "eb39e7e2-b745-44b9-b701-1ea5b11cba76", "494cc4c6-842b-404a-b882-4d84949a9452", "Admin", "ADMIN" });
+                values: new object[] { "fcd43206-53fd-4fb4-b161-4ce16c71db4f", "aaf3626f-0e7b-46ea-a4dc-4c9424e6783e", "Admin", "ADMIN" });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "bf79595e-55f3-4f1b-8bc4-63f94ea58510", "9bf7581a-21ac-4094-8b18-4ca6f494045a", "Landlord", "LANDLORD" });
+                values: new object[] { "45e39e7f-3e26-4630-8330-b2f6d88ce199", "6bfb6283-f3e6-45b9-bc6a-094a5975b554", "Landlord", "LANDLORD" });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "676fec7e-98b8-44f9-bc84-895edd8a13d8", "95389eb5-99cb-48f0-ba01-d14ece47dd31", "Tenant", "TENANT" });
+                values: new object[] { "71905dfa-3691-4494-aead-091df899dbaf", "95c5410d-5696-42cd-99d0-12e3c2f5b4b0", "Tenant", "TENANT" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

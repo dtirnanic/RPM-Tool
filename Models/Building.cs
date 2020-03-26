@@ -9,8 +9,8 @@ namespace RPM_Tool.Models
 {
     public class Building
     {
-        [Key]
-        public int Id { get; set; }
+       
+        public int BuildingId { get; set; }
         [ForeignKey("Landlord")]
         public int LandlordId { get; set; }
         [ForeignKey("MortgageEscrow")]
@@ -26,6 +26,6 @@ namespace RPM_Tool.Models
 
         public ICollection<Building_Vendor> Building_Vendors { get; set; }
         public ICollection<Building_Utility> Building_Utilities { get; set; }
-        public ICollection<Building_ScheduledMaintenance> ScheduledMaintenance_Buildings { get; set; }
+        public ICollection<Building_ScheduledMaintenance> Building_ScheduledMaintenances { get; set; }
     }
 }

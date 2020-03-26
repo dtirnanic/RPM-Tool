@@ -9,7 +9,7 @@ namespace RPM_Tool.Models
     public class Vendor
     {
         [Key]
-        public int Id { get; set; }
+        public int VendorId { get; set; }
         [Display(Name = "Vendor Name")]
         public string VendorName { get; set; }
         [Display(Name = "Phone Number")]

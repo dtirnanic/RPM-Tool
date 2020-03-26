@@ -64,8 +64,8 @@ namespace RPM_Tool.Controllers
             {
                 var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
                 var landlord = _context.Landlords.Where(l => l.IdentityUserId == userId).FirstOrDefault();
-                var building = _context.Buildings.Where(a => a.Id == buildingId).FirstOrDefault();
-                unit.BuildingId = building.Id;
+                var building = _context.Buildings.Where(a => a.BuildingId == buildingId).FirstOrDefault();
+                unit.BuildingId = building.BuildingId;
                 _context.Add(unit);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

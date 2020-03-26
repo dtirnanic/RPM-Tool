@@ -59,14 +59,14 @@ namespace RPM_Tool.Data
                 .HasForeignKey(bu => bu.VendorId);
 
             builder.Entity<Building_ScheduledMaintenance>()
-             .HasKey(bu => new { bu.BuildingId, bu.ScheduledMaintenanceId });
+                .HasKey(bu => new { bu.BuildingId, bu.ScheduledMaintenanceId });
             builder.Entity<Building_ScheduledMaintenance>()
                 .HasOne(bu => bu.Building)
-                .WithMany(b => b.ScheduledMaintenance_Buildings)
+                .WithMany(b => b.Building_ScheduledMaintenances)
                 .HasForeignKey(bu => bu.BuildingId);
             builder.Entity<Building_ScheduledMaintenance>()
                 .HasOne(bu => bu.ScheduledMaintenance)
-                .WithMany(u => u.ScheduledMaintenance_Buildings)
+                .WithMany(u => u.Building_ScheduledMaintenances)
                 .HasForeignKey(bu => bu.ScheduledMaintenanceId);
 
         }
