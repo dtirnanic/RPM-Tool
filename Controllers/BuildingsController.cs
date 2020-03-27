@@ -169,14 +169,14 @@ namespace RPM_Tool.Controllers
             double mortgageAndEscrowMoney = 0;
             foreach (var building in buildings)
             {
-                var mortgage = _context.MortgageAndEscrows.Where(m => m.Id == building.MortgageEscrowId).FirstOrDefault();
+                var mortgage = _context.MortgageAndEscrows.Where(m => m.MortgageAndEscrowId == building.BuildingId).FirstOrDefault();
                 if (mortgage == null)
                     mortgageAndEscrowMoney += 0;
                 else
-                    mortgageAndEscrowMoney += mortgage.MortgageAndEscrowBill;
+                    mortgageAndEscrowMoney += mortgage.MortgageAndEscrowBill; 
             }
 
-            var buildingUtilities = await _context.Buildings.Where(b => b.LandlordId == landlord.Id)
+            var buildingUtilities = await _context.Buildings.Where(b => b.LandlordId == landlord.Id) 
                 .Include(building => building.Building_Utilities)
                 .ThenInclude(utilities => utilities.Utility).ToListAsync();
 
@@ -215,6 +215,7 @@ namespace RPM_Tool.Controllers
             //return View(await buildings.ToListAsync());
         }
 
+        // Get/ Create Scheduled Maintenance Item
         [Authorize(Roles = "Landlord")]
         public IActionResult AddScheduledMaintenanceItem()
         {
@@ -231,11 +232,86 @@ namespace RPM_Tool.Controllers
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var landlord = _context.Landlords.Where(l => l.IdentityUserId == userId).FirstOrDefault();
             _context.Add(scheduledMaintenance);
-            //await _context.SaveChangesAsync(); 
             _context.SaveChanges();
-            //CreateRelationship(id);
-            return RedirectToAction(nameof(Details)); 
+            var buildingMaint = new Building_ScheduledMaintenance()
+            {
+                BuildingId = id,
+                ScheduledMaintenanceId = scheduledMaintenance.ScheduledMaintenanceId
+            };
+            _context.Add(buildingMaint);
+            _context.SaveChanges();
 
+            return RedirectToAction("Details", "Buildings", new { id = id });
+
+        }
+        //get/create Uendor
+        [Authorize(Roles = "Landlord")]
+        public IActionResult AddVendor()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddVendor(int id, Vendor vendor)
+        {
+            var building = await _context.Buildings.FindAsync(id);
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var landlord = _context.Landlords.Where(l => l.IdentityUserId == userId).FirstOrDefault();
+            _context.Add(vendor);
+            _context.SaveChanges();
+            var buildingVendor = new Building_Vendor()
+            {
+                BuildingId = id,
+                VendorId = vendor.VendorId
+            };
+            _context.Add(buildingVendor);
+            _context.SaveChanges();
+            return RedirectToAction("Details","Buildings",new { id = id });
+
+        }
+
+        //get/create Utility
+        [Authorize(Roles = "Landlord")]
+        public IActionResult AddUtility()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddUtility(int id, Utility utility)
+        {
+            var building = await _context.Buildings.FindAsync(id);
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var landlord = _context.Landlords.Where(l => l.IdentityUserId == userId).FirstOrDefault();
+            _context.Add(utility);
+            _context.SaveChanges();
+            var buildingUtility = new Building_Utility()
+            {
+                BuildingId = id,
+                UtilityId = utility.UtilityId
+            };
+            _context.Add(buildingUtility);
+            _context.SaveChanges();
+            return RedirectToAction("Details", "Buildings", new { id = id });
+        }
+
+        //get/create Mortgage and Escrow
+        [Authorize(Roles = "Landlord")]
+        public IActionResult AddMortgageAndEscrow() 
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddMortgageAndEscrow(int id, MortgageAndEscrow mortgage)
+        {
+            var building = await _context.Buildings.FindAsync(id);
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var landlord = _context.Landlords.Where(l => l.IdentityUserId == userId).FirstOrDefault();
+            mortgage.BuildingId = id;
+            _context.Add(mortgage);
+            _context.SaveChanges();
+            return RedirectToAction("Details", "Buildings", new { id = id });
         }
 
         //public void CreateRelationship(int id)

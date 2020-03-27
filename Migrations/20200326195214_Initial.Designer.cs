@@ -10,8 +10,8 @@ using RPM_Tool.Data;
 namespace RPM_Tool.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200325204256_initial")]
-    partial class initial
+    [Migration("20200326195214_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -50,22 +50,22 @@ namespace RPM_Tool.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "fcd43206-53fd-4fb4-b161-4ce16c71db4f",
-                            ConcurrencyStamp = "aaf3626f-0e7b-46ea-a4dc-4c9424e6783e",
+                            Id = "cfe2590b-ae44-4994-a114-4871fea10f4e",
+                            ConcurrencyStamp = "11176fd8-9d64-4ce9-9b2b-6615540f5564",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "45e39e7f-3e26-4630-8330-b2f6d88ce199",
-                            ConcurrencyStamp = "6bfb6283-f3e6-45b9-bc6a-094a5975b554",
+                            Id = "d53c50c1-2e88-409b-9e16-45432da05daa",
+                            ConcurrencyStamp = "d7bf05b3-a6eb-41f0-9a77-a0be2b51b429",
                             Name = "Landlord",
                             NormalizedName = "LANDLORD"
                         },
                         new
                         {
-                            Id = "71905dfa-3691-4494-aead-091df899dbaf",
-                            ConcurrencyStamp = "95c5410d-5696-42cd-99d0-12e3c2f5b4b0",
+                            Id = "9c1f50fa-fcf3-4ebb-a43a-2fc635ba6d22",
+                            ConcurrencyStamp = "35ed0872-e879-4fb1-8f05-3f35ac9f2fd2",
                             Name = "Tenant",
                             NormalizedName = "TENANT"
                         });
@@ -253,9 +253,6 @@ namespace RPM_Tool.Migrations
                     b.Property<int>("LandlordId")
                         .HasColumnType("int");
 
-                    b.Property<int>("MortgageEscrowId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -350,6 +347,9 @@ namespace RPM_Tool.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("BuildingId")
+                        .HasColumnType("int");
 
                     b.Property<double>("MortgageAndEscrowBill")
                         .HasColumnType("float");
@@ -456,7 +456,7 @@ namespace RPM_Tool.Migrations
 
             modelBuilder.Entity("RPM_Tool.Models.Utility", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("UtilityId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -473,14 +473,14 @@ namespace RPM_Tool.Migrations
                     b.Property<string>("UtilityType")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("UtilityId");
 
                     b.ToTable("Utilities");
                 });
 
             modelBuilder.Entity("RPM_Tool.Models.Vendor", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("VendorId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -497,7 +497,7 @@ namespace RPM_Tool.Migrations
                     b.Property<string>("VendorName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("VendorId");
 
                     b.ToTable("Vendors");
                 });

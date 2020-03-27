@@ -15,6 +15,7 @@ using Microsoft.Extensions.Hosting;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 using Twilio;
+using Stripe;
 
 namespace RPM_Tool
 {
@@ -42,7 +43,7 @@ namespace RPM_Tool
 
             services.AddControllers(config => config.Filters.Add(typeof(GlobalRouting)));
             TwilioClient.Init("AC6f3bc50cb1c4d8d19b1c2081a4c9fc32", "7d4cf4e4c1f686a545769572248b4628");  //account id, auth token
-
+            StripeConfiguration.ApiKey = "sk_test_ouZb5aGYHrgFIUbxz8ORACSd00b4QT5cQr";
 
             services.AddControllersWithViews();
             services.AddRazorPages();

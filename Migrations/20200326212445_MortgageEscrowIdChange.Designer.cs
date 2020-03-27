@@ -10,8 +10,8 @@ using RPM_Tool.Data;
 namespace RPM_Tool.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200325223544_modelsfk")]
-    partial class modelsfk
+    [Migration("20200326212445_MortgageEscrowIdChange")]
+    partial class MortgageEscrowIdChange
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -50,22 +50,22 @@ namespace RPM_Tool.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "7c5e9b0c-2f39-4ea6-b527-e158eba76faa",
-                            ConcurrencyStamp = "bb995bf5-fc63-44ab-8ca9-9980461bc372",
+                            Id = "f4a4abf8-8326-4688-8c07-2c4af54dce51",
+                            ConcurrencyStamp = "4d1302c8-9799-47fe-b613-1e103631cfa3",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "3b558912-0bab-4cbb-a345-429a9e7a4e12",
-                            ConcurrencyStamp = "e6d3032a-1471-4131-8d4f-f2fd43315cd2",
+                            Id = "9fda4e9f-fadc-464a-a750-1b90a7824b76",
+                            ConcurrencyStamp = "6f58f92f-9b97-4817-8dd1-df6a6d0d7b49",
                             Name = "Landlord",
                             NormalizedName = "LANDLORD"
                         },
                         new
                         {
-                            Id = "6567d56b-7795-48eb-ba66-7ae1d3e3e94a",
-                            ConcurrencyStamp = "cec21360-4c5d-4be2-919e-440e29e546d4",
+                            Id = "bda92dc2-aaff-4fc4-93ac-84cc78205fed",
+                            ConcurrencyStamp = "fa1af70f-fd06-46f9-a275-555a9519540b",
                             Name = "Tenant",
                             NormalizedName = "TENANT"
                         });
@@ -253,9 +253,6 @@ namespace RPM_Tool.Migrations
                     b.Property<int>("LandlordId")
                         .HasColumnType("int");
 
-                    b.Property<int>("MortgageEscrowId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -346,10 +343,13 @@ namespace RPM_Tool.Migrations
 
             modelBuilder.Entity("RPM_Tool.Models.MortgageAndEscrow", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("MortgageAndEscrowId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("BuildingId")
+                        .HasColumnType("int");
 
                     b.Property<double>("MortgageAndEscrowBill")
                         .HasColumnType("float");
@@ -357,7 +357,7 @@ namespace RPM_Tool.Migrations
                     b.Property<string>("MortgageProvider")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("MortgageAndEscrowId");
 
                     b.ToTable("MortgageAndEscrows");
                 });

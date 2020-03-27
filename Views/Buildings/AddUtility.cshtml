@@ -1,0 +1,49 @@
+﻿@model RPM_Tool.Models.Utility
+
+@{
+    ViewData["Title"] = "AddUtility";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>AddUtility</h1>
+
+<h4>Utility</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AddUtility">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="UtilityProvider" class="control-label"></label>
+                <input asp-for="UtilityProvider" class="form-control" />
+                <span asp-validation-for="UtilityProvider" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UtilityType" class="control-label"></label>
+                <input asp-for="UtilityType" class="form-control" />
+                <span asp-validation-for="UtilityType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PhoneNumber" class="control-label"></label>
+                <input asp-for="PhoneNumber" class="form-control" />
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Bill" class="control-label"></label>
+                <input asp-for="Bill" class="form-control" />
+                <span asp-validation-for="Bill" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

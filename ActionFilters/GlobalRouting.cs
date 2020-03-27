@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System;
 using System.Collections.Generic;
@@ -11,9 +12,11 @@ namespace RPM_Tool
     public class GlobalRouting : IActionFilter
     {
         private readonly ClaimsPrincipal _claimsPrincipal;
-        public GlobalRouting(ClaimsPrincipal claimsPrincipal)
+        private readonly UserManager<IdentityUser> _userManager;
+        public GlobalRouting(ClaimsPrincipal claimsPrincipal, UserManager<IdentityUser> userManager)
         {
             _claimsPrincipal = claimsPrincipal;
+            _userManager = userManager;
         }
 
         public void OnActionExecuting(ActionExecutingContext context)

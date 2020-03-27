@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -8,6 +9,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using RPM_Tool.Data;
 using RPM_Tool.Models;
+using Stripe;
 using Twilio;
 using Twilio.Rest.Api.V2010.Account;
 using Twilio.Types;
@@ -49,6 +51,29 @@ namespace RPM_Tool.Controllers
             }
             ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id");
             return View(tenant);
+        }
+
+        public async Task<IActionResult> ScheduledMaintenanceByBuilding()
+        {
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var tenant = _context.Tenants.Where(x => x.IdentityUserId == userId).FirstOrDefault();
+            var unit = _context.Units.Where(x => x.Id == tenant.UnitId).FirstOrDefault();
+            var building = _context.Buildings.Where(b => b.BuildingId == unit.BuildingId).FirstOrDefault();
+
+            var buildingMaintSchedules = await _context.Buildings.Where(b => b.BuildingId == unit.BuildingId)
+                .Include(building => building.Building_ScheduledMaintenances)
+                .ThenInclude(buildingSch => buildingSch.ScheduledMaintenance).ToListAsync();
+            
+            List<ScheduledMaintenance> maintenances = new List<ScheduledMaintenance>();
+
+            foreach (var b in buildingMaintSchedules)
+            {
+                foreach (var schMaint in b.Building_ScheduledMaintenances)
+                {
+                    maintenances.Add(schMaint.ScheduledMaintenance);
+                }
+            }
+            return View(maintenances);
         }
 
         // POST: Tenants/Create
@@ -182,6 +207,56 @@ namespace RPM_Tool.Controllers
                 from: new PhoneNumber(@"+15109747715"),  //twilio number
                 body: $"{tenant.FirstName} {tenant.LastName} has made a maintenance request");
             return RedirectToAction(nameof(Details), id);
+        }
+
+        public async Task<IActionResult> PayRent()
+        {
+
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var tenant = _context.Tenants.Where(x => x.IdentityUserId == userId).FirstOrDefault();
+            var unit = await _context.Units.FindAsync(tenant.UnitId);
+
+            StripeConfiguration.ApiKey = "sk_test_U6srF4GIEsNpr9u1o42HH7dv00ps1A4MY3";
+
+
+            var options = new ChargeCreateOptions
+            {
+                Amount = unit.RentAmount * 100,
+                Currency = "usd",
+                Source = "tok_visa",
+                Description = $"Rent paid by {tenant.FirstName} {tenant.LastName} Unit - {unit.Id} - ${unit.RentAmount}"
+            };
+            var service = new ChargeService();
+            service.Create(options);
+            unit.RentPaid = true;
+            _context.Update(unit);
+            await _context.SaveChangesAsync();
+
+
+            return RedirectToAction(nameof(Details), tenant.Id);
+        }
+        public IActionResult Charge(string stripeEmail, string stripeToken)
+        {
+            var customers = new CustomerService();
+            var charges = new ChargeService();
+
+            var customer = customers.Create(new CustomerCreateOptions
+            {
+                Email = stripeEmail,
+                Source = stripeToken
+            });
+
+            var charge = charges.Create(new ChargeCreateOptions
+            {
+                Amount = 500,//charge in cents
+                Description = "Sample Charge",
+                Currency = "usd",
+                Customer = customer.Id
+            });
+
+            // further application specific code goes here
+
+            return View();
         }
     }
 }

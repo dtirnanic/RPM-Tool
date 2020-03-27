@@ -25,11 +25,17 @@
     </dl>
 </div>
 <div>
-    <a asp-action="AddScheduledMaintenanceItem" asp-route-id="@Model.BuildingId">Add Maintenance Item</a> 
+    <a asp-action="AddScheduledMaintenanceItem" asp-route-id="@Model.BuildingId">Add Maintenance Item</a>
+</div><div>
+    <a asp-action="AddVendor" asp-route-id="@Model.BuildingId">Add Vendor Bill</a>
+</div><div>
+    <a asp-action="AddUtility" asp-route-id="@Model.BuildingId">Add Utility Bill</a>
+</div><div>
+    <a asp-action="AddMortgageAndEscrow" asp-route-id="@Model.BuildingId">Add Mortgage and Escrow</a>
 </div>
 <h1>Units</h1>
 <div>Unit # / Rent Amount</div>
-@foreach (var item in ViewData["Units"] as List<Unit>) 
+@foreach (var item in ViewData["Units"] as List<Unit>)
 {
     <p>
         @item.Id @item.RentAmount

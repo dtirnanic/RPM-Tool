@@ -9,12 +9,10 @@ namespace RPM_Tool.Models
 {
     public class Building
     {
-       
+        [Key]
         public int BuildingId { get; set; }
         [ForeignKey("Landlord")]
         public int LandlordId { get; set; }
-        [ForeignKey("MortgageEscrow")]
-        public int MortgageEscrowId { get; set; }
         [Display(Name = "Building")]
         public string Name { get; set; }
         [Display(Name = "Street Address")]

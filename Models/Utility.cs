@@ -8,7 +8,7 @@ namespace RPM_Tool.Models
 {
     public class Utility
     {
-        [Key]
+        
         public int UtilityId { get; set; }
         [Display(Name = "Utility Provider")]
         public string UtilityProvider { get; set; }
